@@ -5,34 +5,40 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Kategori Pengumuman</div>
                 <div class="card-body">
-     
-<body>
-		<table border="1">
-		<tittle>kategori pengumuman</tittle>
-			<tr>
-				<td>Id</td>
-				<td>Nama</td>
-				<td>Users id</td> 
+                    
+                <table class="table table-bordered">
+                    <thead class="bg-success">
+                        <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">User_id</th>
+                        <th scope="col">Create</th>
+                        <th scope="col">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-
-              </div>
-             </div>
+                        @foreach( $KategoriPengumuman as $item)
+                        <tr>
+                        <td>{!! $item->id !!}</td>
+                        <td>{!! $item->nama !!}</td>
+                        <td>{!! $item->users_id !!}</td>
+                        <td>{!! $item->created_at->format('d/m/Y H:i:s')!!}</td>
+                        <td>
+                         <a href="{!! route('kategori_pengumuman.show',[$item->id]) !!}">Detail</a>
+                        </td>
+                        </tr>
+                       @endforeach
+                    </tbody>
+                </table>
+                    <td>
+                        <a href="{!! route('kategori_pengumuman.create') !!}" class="btn btn-primary">Tambah Data</a>
+                    </td>
             </div>
-
-
-		
-
-			</tr>
-		@foreach($KategoriPengumuman as $item)
-		<tr>
-			<td>{!! $item->id !!}</td>
-			<td>{!! $item->nama !!}</td>
-			<td>{!! $item->users_id !!}</td>
-		</tr>
-	
-		@endforeach
-	</table>
+        </div>
+    </div>
 </div>
 </div>
+@endsection
