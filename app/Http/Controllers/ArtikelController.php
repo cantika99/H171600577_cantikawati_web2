@@ -10,18 +10,18 @@ class ArtikelController extends Controller
 {
     public function index(){
         
-        $artikel=artikel::all(); 
+        $Artikel=Artikel::all(); 
 
-        return view ('artikel.index',compact('artikel'));
-        //return view ('artikel.index'->with('data',$artikel);
+        return view ('artikel.index',compact('Artikel'));
+        //return view ('artikel.index'->with('data',$listArtikel);
     }
 
     public function show($id) {
 
-        //$artikel=artikel::where('id',$id)->first();
-        $artikel=artikel::find($id);
+        //$Artikel=Artikel::where('id',$id)->first();
+        $Artikel=Artikel::find($id);
 
-        return view ('artikel.show', compact('artikel'));
+        return view ('artikel.show', compact('Artikel'));
         
     }
 
@@ -40,4 +40,44 @@ class ArtikelController extends Controller
 
         return redirect(route('artikel.index'));
     }
+    public function edit($id){
+      $Artikel=Artikel::find($id);
+      $KategoriArtikel=KategoriArtikel::pluck('nama','id');
+
+      if (empty($Artikel)){
+        return redirect(route('artikel.index'));
+      }
+      return view('artikel.edit', compact('Artikel','KategoriArtikel'));
+  }
+  public function update($id,Request $request){
+    $Artikel=Artikel::find($id);
+    $input= $request->all();
+
+    if (empty($Artikel)){
+      return redirect(route('artikel.index'));
+    }
+    $Artikel->update($input);
+    return redirect(route('artikel.index'));
+
+  }
+
+  public function destroy($id){
+      $Artikel=Artikel::find($id);
+
+
+    if (empty($Artikel)){
+      return redirect(route('artikel.index'));
+    }
+    $Artikel->delete();
+    return redirect(route('artikel.index'));
+   }
+
+   public function trash()
+   {
+       $Artikel=Artikel::onlyTrashed()
+       ->whereNotNull('deleted_at')
+       ->get();
+       
+       return view('artikel.index',compact('Artikel'));
+   }
 }

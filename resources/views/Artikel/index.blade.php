@@ -5,9 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Artikel</div>
+                <div class="card-header bg-info">List Artikel</div>
                 <div class="card-body">
-                    
+                <td>
+                   
+                   <a href="{!! route('artikel.trash') !!}" class="btn btn-danger">Lihat Data Trash</a>
+                   </td>
                 <table class="table table-bordered">
                     <thead class="bg-primary">
                         <tr>
@@ -22,7 +25,7 @@
                     </thead>
                     <tbody>
 
-                        @foreach( $listArtikel as $item)
+                        @foreach( $Artikel as $item)
                         <tr>
                         <td>{!! $item->id !!}</td>
                         <td>{!! $item->judul !!}</td>
@@ -32,13 +35,24 @@
                         !!}</td>
                         <td>{!! $item->kategori_artikel_id !!}</td>
                         <td>
-                         <a href="{!! route('artikel.show',[$item->id]) !!}">Detail</a>
+
+                        <a href="{!! route('artikel.show',[$item->id]) !!}" class="btn btn-sm btn-primary">Detail</a>
+                        
+                        <a href="{!! route('artikel.edit',[$item->id]) !!}" class="btn btn-sm btn-warning">Edit</a>
+                        
+
+                        {!! Form::open(['route'=>['artikel.destroy',$item->id],'method'=>'delete']) !!}
+
+                        {!! Form::submit('Hapus', ['class'=>'btn btn-sm btn-danger','onclick'=>"return confirm ('yakin menghapus data ini?')"]); !!}
+
+                        {!! Form::close() !!}
+
                         </td>
                         </tr>
                        @endforeach
                     </tbody>
                 </table>
-                <a href="{!! route('artikel.create') !!}" class="btn btn-primary">Tambah Data</a>
+                <a href="{!! route('artikel.create') !!}" class="btn btn-warning">Tambah Data</a>
             </div>
         </div>
     </div>

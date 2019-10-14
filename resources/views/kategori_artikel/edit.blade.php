@@ -8,9 +8,12 @@
                 <div class="card-header">Tambah Kategori Artikel</div>
 
                 <div class="card-body">
-                {!! Form::open(['route'=>'kategori_artikel.store', 'method'=>'post']) !!}
-                     @include('kategori_artikel.form')
-                {!! Form::close() !!}
+                	
+                    {!! Form::model($listKategoriArtikel, ['route'=>['kategori_artikel.update',$listKategoriArtikel->id],'method'=>'patch']) !!}
+                	
+                    @include('kategori_artikel.form')
+
+                	{!! Form::close() !!}
                 </div>
             </div>
         </div>
